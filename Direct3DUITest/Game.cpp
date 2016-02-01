@@ -204,10 +204,9 @@ void Game::CreateDeviceDependentResources()
 		D3D11_DEFAULT_DEPTH_BIAS, D3D11_DEFAULT_DEPTH_BIAS_CLAMP,
 		D3D11_DEFAULT_SLOPE_SCALED_DEPTH_BIAS, TRUE, FALSE,
 		TRUE, FALSE);
-
 	DX::ThrowIfFailed(m_deviceResources->GetD3DDevice()->CreateRasterizerState(&rastDesc,
 		m_raster.ReleaseAndGetAddressOf()));
-
+	
  device;
 }
 
@@ -223,7 +222,7 @@ void Game::CreateWindowSizeDependentResources()
 
 	m_effect->SetView(m_view);
 	m_effect->SetProjection(m_proj);
-   
+ 
 }
 
 void Game::OnDeviceLost()
