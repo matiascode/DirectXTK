@@ -23,7 +23,7 @@ public:
 		m_effect->SetPerPixelLighting(true);
 		m_effect->SetLightingEnabled(true);
 		m_effect->SetLightEnabled(0, true);
-		m_effect->SetLightDiffuseColor(0, DirectX::Colors::White);
+		m_effect->SetLightDiffuseColor(0, DirectX::Colors::AliceBlue);
 		m_effect->SetLightDirection(0, -DirectX::SimpleMath::Vector3::UnitZ);
 
 		m_shape = DirectX::GeometricPrimitive::CreateSphere(m_d3dContext.Get());

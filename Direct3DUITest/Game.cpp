@@ -79,40 +79,8 @@ void Game::Render()
 	m_effect->Apply(m_d3dContext.Get());
 
 	m_d3dContext->IASetInputLayout(m_inputLayout.Get());
-
-	m_batch->Begin();
-
-	DirectX::SimpleMath::Vector3 xaxis(2.f, 0.f, 0.f);
-	DirectX::SimpleMath::Vector3 yaxis(0.f, 0.f, 2.f);
-	DirectX::SimpleMath::Vector3 origin = DirectX::SimpleMath::Vector3::Zero;
-
-	size_t divisions = 20;
-
-	for (size_t i = 0; i <= divisions; ++i)
-	{
-		float fPercent = float(i) / float(divisions);
-		fPercent = (fPercent * 2.0f) - 1.0f;
-
-		DirectX::SimpleMath::Vector3 scale = xaxis * fPercent + origin;
-
-		VertexPositionColor v1(scale - yaxis, Colors::White);
-		VertexPositionColor v2(scale + yaxis, Colors::White);
-		m_batch->DrawLine(v1, v2);
-	}
-
-	for (size_t i = 0; i <= divisions; i++)
-	{
-		float fPercent = float(i) / float(divisions);
-		fPercent = (fPercent * 2.0f) - 1.0f;
-
-		DirectX::SimpleMath::Vector3 scale = yaxis * fPercent + origin;
-
-		VertexPositionColor v1(scale - xaxis, Colors::White);
-		VertexPositionColor v2(scale + xaxis, Colors::White);
-		m_batch->DrawLine(v1, v2);
-	}
-
-	m_batch->End();
+	//render a grid on x-y plane with origin 0,0,0
+	RenderWorldGrid();
 
     context;
 
@@ -173,8 +141,8 @@ void Game::OnWindowSizeChanged(int width, int height)
 void Game::GetDefaultSize(int& width, int& height) const
 {
     // TODO: Change to desired default window size (note minimum size is 320x200).
-    width = 800;
-    height = 600;
+    width = 1280;
+    height = 720;
 }
 
 // These are the resources that depend on the device.
@@ -223,6 +191,43 @@ void Game::CreateWindowSizeDependentResources()
 	m_effect->SetView(m_view);
 	m_effect->SetProjection(m_proj);
  
+}
+
+void Game::RenderWorldGrid()
+{
+	m_batch->Begin();
+
+	DirectX::SimpleMath::Vector3 xaxis(2.f, 0.f, 0.f);
+	DirectX::SimpleMath::Vector3 yaxis(0.f, 0.f, 2.f);
+	DirectX::SimpleMath::Vector3 origin = DirectX::SimpleMath::Vector3::Zero;
+
+	size_t divisions = 20;
+
+	for (size_t i = 0; i <= divisions; ++i)
+	{
+		float fPercent = float(i) / float(divisions);
+		fPercent = (fPercent * 2.0f) - 1.0f;
+
+		DirectX::SimpleMath::Vector3 scale = xaxis * fPercent + origin;
+
+		VertexPositionColor v1(scale - yaxis, Colors::LightSteelBlue);
+		VertexPositionColor v2(scale + yaxis, Colors::BlanchedAlmond);
+		m_batch->DrawLine(v1, v2);
+	}
+
+	for (size_t i = 0; i <= divisions; i++)
+	{
+		float fPercent = float(i) / float(divisions);
+		fPercent = (fPercent * 2.0f) - 1.0f;
+
+		DirectX::SimpleMath::Vector3 scale = yaxis * fPercent + origin;
+
+		VertexPositionColor v1(scale - xaxis, Colors::LightSteelBlue);
+		VertexPositionColor v2(scale + xaxis, Colors::BlanchedAlmond);
+		m_batch->DrawLine(v1, v2);
+	}
+
+	m_batch->End();
 }
 
 void Game::OnDeviceLost()

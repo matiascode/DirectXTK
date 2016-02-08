@@ -45,7 +45,8 @@ private:
 
     void CreateDeviceDependentResources();
     void CreateWindowSizeDependentResources();
-
+	//rendering functions
+	void RenderWorldGrid();
     // Device resources.
     std::unique_ptr<DX::DeviceResources>    m_deviceResources;
 	DirectX::SimpleMath::Matrix m_world;
